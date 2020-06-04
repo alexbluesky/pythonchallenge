@@ -4,6 +4,8 @@
     Create by Cao Ya'nan on 2020-06-04
 """
 import string
+from string import ascii_letters
+import re, urllib.request, webbrowser as wb
 
 
 def test_0():
@@ -23,4 +25,9 @@ def test_1():
 
 
 def test_2():
-    pass
+    with urllib.request.urlopen('http://www.pythonchallenge.com/pc/def/ocr.html') as f:
+        result = re.findall('<!--(.*?)-->', f.read().decode('utf8'), re.S)
+        print(result)
+        print(''.join([c for c in result[1] if c in ascii_letters]))
+
+    # wb.open('http://www.pythonchallenge.com/pc/def/%s.html'%.join())
