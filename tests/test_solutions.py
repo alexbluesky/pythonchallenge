@@ -37,7 +37,6 @@ def test_2():
         min_asc = [x[0] for x in asc_counter if x[1] == min_num]
         print(''.join(min_asc))
 
-
     # wb.open('http://www.pythonchallenge.com/pc/def/equality.html')
 
 
@@ -50,3 +49,32 @@ def test_3():
         result = re.findall('[^A-Z][A-Z]{3}([a-z])[A-Z]{3}[^A-Z]', text[0])
         print(result)
         print(''.join([i[0] for i in result]))
+
+
+def test_4():
+    base_url = 'http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing={}'
+    number = 12345
+    for i in range(400):
+        try:
+            with urllib.request.urlopen(base_url.format(number), timeout=3) as req:
+                if req.code != 200:
+                    break
+                req_content = req.read().decode('utf8').split()
+                # if i == 399:
+                #     print(req_content)
+                # print(i, req_content)
+                if req_content[0] != 'and':
+                    print(i, ' '.join(req_content))
+                if req_content[0] in ['yes', 'Yes.']:
+                    number /= 2
+                else:
+                    number = int(req_content[-1])
+                # print(number)
+
+                # if number:
+                #     print(req_content.split()[-1])
+        except Exception as e:
+            print(e)
+            if 'invalid literal for int() with base 10' in str(e):
+                break
+
