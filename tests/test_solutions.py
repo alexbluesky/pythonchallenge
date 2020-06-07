@@ -3,6 +3,7 @@
 """
     Create by Cao Ya'nan on 2020-06-04
 """
+import pickle
 import string
 from collections import Counter
 from string import ascii_letters
@@ -78,3 +79,9 @@ def test_4():
             if 'invalid literal for int() with base 10' in str(e):
                 break
 
+
+def test_5():
+    with urllib.request.urlopen('http://www.pythonchallenge.com/pc/def/banner.p') as resp:
+        content = resp.read()
+        c = pickle.loads(content)
+        print('\n'.join([''.join([i[0] * i[1] for i in line]) for line in c]))
